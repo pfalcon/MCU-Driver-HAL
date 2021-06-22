@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-#include "mbed.h"
-#include "greentea-client/test_env.h"
-#include "unity.h"
-#include "utest.h"
-#include "ticker_api_tests.h"
-#include "hal/us_ticker_api.h"
+#include "bootstrap/mbed_critical.h"
+#include "bootstrap/mbed_toolchain.h"
 #include "hal/lp_ticker_api.h"
+#include "hal/us_ticker_api.h"
+#include "ticker_api_tests.h"
+
+#include "greentea-client/test_env.h"
+#include "unity/unity.h"
+#include "utest/utest.h"
 
 #ifdef MBED_CONF_RTOS_PRESENT
 #ifdef __cplusplus
