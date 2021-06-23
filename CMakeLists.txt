@@ -174,6 +174,7 @@ add_subdirectory(tools/utest)
 # HAL tests
 add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/common_tickers EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal/common_tickers_freq EXCLUDE_FROM_ALL)
 
 if(${CMAKE_CROSSCOMPILING})
     # Ensure the words that make up the Mbed target name are separated with a hyphen, lowercase, and with the `mbed-` prefix.
