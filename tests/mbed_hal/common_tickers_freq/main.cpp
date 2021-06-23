@@ -26,6 +26,7 @@
 #include "ticker_api_test_freq.h"
 
 #include "greentea-client/test_env.h"
+#include "greentea-custom_io/custom_io.h"
 #include "unity/unity.h"
 #include "utest/utest.h"
 
@@ -209,6 +210,7 @@ Specification specification(greentea_test_setup, cases, greentea_test_teardown);
 
 int main()
 {
+    greentea_init_custom_io();
     Harness::run(specification);
 }
 
