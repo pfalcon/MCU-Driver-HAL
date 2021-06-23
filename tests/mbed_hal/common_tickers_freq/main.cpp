@@ -19,13 +19,15 @@
  * freqency is valid.
  */
 
-#include "mbed.h"
-#include "greentea-client/test_env.h"
-#include "utest/utest.h"
-#include "unity/unity.h"
-#include "ticker_api_test_freq.h"
-#include "hal/us_ticker_api.h"
+#include <string.h>
+#include "bootstrap/mbed_critical.h"
 #include "hal/lp_ticker_api.h"
+#include "hal/us_ticker_api.h"
+#include "ticker_api_test_freq.h"
+
+#include "greentea-client/test_env.h"
+#include "unity/unity.h"
+#include "utest/utest.h"
 
 #if !DEVICE_USTICKER
 #error [NOT_SUPPORTED] UsTicker need to be enabled for this test
