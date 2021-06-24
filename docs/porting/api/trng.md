@@ -1,4 +1,4 @@
-# True Random Number Generator
+# True Random Number Generator (TRNG)
 
 The implementation of this interface is specific to your MCU.
 

@@ -1,4 +1,4 @@
-<h1 id="resetreason-port">ResetReason</h1>
+<h1 id="resetreason-port">Reset Reason</h1>
 
 The `ResetReason` API provides a platform-independent method of checking the cause of the last system reset. Implementing the ResetReason API is not mandatory, but by implementing it, you can check for erroneous system resets at boot time.
 

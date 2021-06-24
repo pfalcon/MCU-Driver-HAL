@@ -1,6 +1,4 @@
-# Thread safety and porting
-
-The thread safety documentation is available in our Reference section.
+# Thread safety
 
 ## Considerations when porting
 
