@@ -1,20 +1,5 @@
-# HAL APIs
+<h1 id="pinmap-port">PinMap</h1>
 
-Adding a new microcontroller to MCU-Driver-HAL depends on CMSIS-CORE and CMSIS-Pack. Please make sure that the microcontroller already has these available.
-
-## Adding a new microcontroller and board
-
-MCU-Driver-HAL currently relies on Mbed OS tools to add support for new MCU and board.
-This is required in order to run the necessary tools command to generate a configuration CMake module for your new board.
-Follow the steps [here](https://os.mbed.com/docs/mbed-os/v6.11/porting/porting-the-hal-apis.html) to add a Target description.
-Copy the configuration of an existing MCU/board and modifying to suit your needs.
-
-## HAL porting
-
-You enable the APIs by adding the appropriate C macro definitions to the `MBED_TARGET_DEFINITIONS` CMake variable.  
-This process is automated when following the [Mbed OS instructions](https://os.mbed.com/docs/mbed-os/v6.11/porting/porting-the-hal-apis.html) and running the `mbed-tools` software tool.
-
-## PinMap
 All HAL APIs that use pins have functions to get the corresponding pin maps. These functions return a `PinMap` array with each entry containing a pin name, a peripheral and a function. The presence of an NC pin indicates the end of the pin map array. Below is an example implementation of the function to get the serial transmit pin map:
 
 ```c
@@ -43,4 +28,4 @@ Steps to run the HAL tests will be provided in the future.
 
 You can test your port using the FPGA test shield component.
 
-To run the FPGA test shield test, perform the following steps defined [here](https://os.mbed.com/docs/mbed-os/v6.11/porting/porting-the-hal-apis.html).
+Steps to run the HAL FPGA tests shield will be provided in the future.

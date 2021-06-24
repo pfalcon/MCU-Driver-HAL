@@ -1,4 +1,4 @@
-# Standard Pin Names
+# Standard pin names
 
 This porting guide aims to help vendors comply with the pin naming guidelines.
 

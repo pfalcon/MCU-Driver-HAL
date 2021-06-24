@@ -1,10 +1,10 @@
-# Bootstrap
+# Startup configuration
 
 ## Bring in CMSIS-Core files
 
 To work with MCU-Driver-HAL, you need to implement CMSIS-Core support for your device as the [CMSIS-Core documentation](https://arm-software.github.io/CMSIS_5/Core/html/index.html) describes it.
 
-### Startup files
+### Startup file
 
 The startup file contains interrupt vectors and low-level core and platform initialization routines. You need to provide a version of this file for each supported toolchain.
 

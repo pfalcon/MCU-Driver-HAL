@@ -1,4 +1,4 @@
-<h1 id="mpu-port">MPU</h1>
+<h1 id="mpu-port">Memory Protection Unit (MPU)</h1>
 
 Implementing the MPU API enables MCU-Driver-HAL to provide better security by preventing code execution and code modification where it should not be allowed.
 

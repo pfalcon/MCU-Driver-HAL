@@ -1,4 +1,4 @@
-<h1 id="rtc-port">RTC</h1>
+<h1 id="rtc-port">Real-Time CLock (RTC)</h1>
 
 Implementing RTC enables MCU-Driver-HAL to keep track of the current time. The standard library time keeping functions, such as `time`, uses it.
 
