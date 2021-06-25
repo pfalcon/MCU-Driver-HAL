@@ -13,14 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_library(sdfx-test-common_tickers OBJECT)
+add_library(sdfx-test-us_ticker_lp_ticker_common OBJECT)
 
-target_sources(sdfx-test-common_tickers
+target_sources(sdfx-test-us_ticker_lp_ticker_common
     PRIVATE
         main.cpp
 )
 
-target_link_libraries(sdfx-test-common_tickers
+target_link_libraries(sdfx-test-us_ticker_lp_ticker_common
     PRIVATE
         mbed-os
         greentea::client
