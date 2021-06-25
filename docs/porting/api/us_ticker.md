@@ -56,6 +56,12 @@ In addition to the generic `ticker_info_t`, the MCU can also provide compile tim
 
 ## Testing
 
-MCU-Driver-HAL provides a set of conformance tests for the microsecond ticker. You can use these tests to validate the correctness of your implementation.
+MCU-Driver-HAL provides a set of conformance tests for the microsecond ticker:
 
-Steps to run the microsecond ticker HAL tests will be provided in the future.
+- `MCU-Driver-HAL/tests/mbed_hal/ticker/us_ticker` -- verify that the microsecond ticker frequency and the microsecond ticker counter width are within a correct range, see [paragraph above](#defined-behavior),
+- `MCU-Driver-HAL/tests/mbed_hal/us_ticker_lp_ticker_common` -- verify the defined behavior of the microsecond ticker, see [paragraph above](#defined-behavior),
+- `MCU-Driver-HAL/tests/mbed_hal/us_ticker_lp_ticker_frequency` -- verify that the microsecond ticker is operating at the frequency it specifies (with the use of a host script).
+
+You can use these tests to validate the correctness of your implementation.
+
+Visit the driver implementation for a step-by-step guide on building and running the microsecond ticker tests.
