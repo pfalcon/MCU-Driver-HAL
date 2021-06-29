@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-#include "mbed.h"
-#include "greentea-client/test_env.h"
-#include "unity.h"
-#include "utest.h"
-#include "us_ticker_api_tests.h"
 #include "hal/us_ticker_api.h"
+#include "us_ticker_api_tests.h"
+
+#include "greentea-client/test_env.h"
+#include "greentea-custom_io/custom_io.h"
+#include "unity/unity.h"
+#include "utest/utest.h"
 
 #if !DEVICE_USTICKER
 #error [NOT_SUPPORTED] test not supported
@@ -66,6 +67,7 @@ Specification specification(test_setup, cases);
 
 int main()
 {
+    greentea_init_custom_io();
     return !Harness::run(specification);
 }
 
