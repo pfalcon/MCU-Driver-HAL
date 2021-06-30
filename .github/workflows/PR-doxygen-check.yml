@@ -1,0 +1,28 @@
+# Copyright (c) 2021 Arm Limited
+# SPDX-License-Identifier: Apache-2.0
+
+name: PR-Check Doxygen Documents
+# This job for check Doxygen documents generation on pull request
+
+
+on:
+  # Triggers the workflow on pull request
+  pull_request:
+
+
+jobs:
+
+  Doxygen:
+    runs-on: ubuntu-latest
+    # Run this this job inside container
+    container: mcudriverhal/ci-build-env:sanity
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate new doxygen html
+        run: |
+          rm -rf ./docs/doxygen/html
+          mkdir -p ./docs/doxygen/html
+          doxygen ./docs/doxygen/doxyfile_options

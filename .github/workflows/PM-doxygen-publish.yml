@@ -1,0 +1,53 @@
+# Copyright (c) 2021 Arm Limited
+# SPDX-License-Identifier: Apache-2.0
+
+name: PM-Publish Doxygen Documents
+# This job for publish Doxygen documents Post-Merge
+
+
+on:
+  # Triggers the workflow on push, only with header file changed
+  push:
+    branches: [ main ]
+    paths: [ '**/*.h' ]
+
+  # Allows this workflow manually triggered
+  workflow_dispatch:
+
+
+jobs:
+
+  Doxygen:
+    runs-on: ubuntu-latest
+    # Run this this job inside container
+    container: mcudriverhal/ci-build-env:sanity
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Git Configurations
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com    
+
+      - name: Generate new doxygen html
+        run: |
+          rm -rf ./docs/doxygen/html
+          mkdir -p ./docs/doxygen/html
+          doxygen ./docs/doxygen/doxyfile_options
+
+      # Push the generated doxygen into stash, then cherry-pick them to docs-doxygen_html branch
+      - name: Push to docs-doxygen_html branch
+        run: |
+          MAIN_SHA=$(git rev-parse --short HEAD)
+          git add ./docs/doxygen/html
+          git stash push -m "Doxy: Generate HTML @ $MAIN_SHA" ./docs/doxygen/html
+          git fetch origin
+          git checkout origin/docs-doxygen_html
+          git cherry-pick --strategy=recursive --strategy-option=theirs stash@{0} -m 1
+
+      - name: Push to remote branch
+        run: |
+          git log --oneline -5
+          git push origin HEAD:docs-doxygen_html
