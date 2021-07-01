@@ -17,8 +17,8 @@
 /** \addtogroup hal_crc_tests */
 /** @{*/
 
-#ifndef MBED_CRC_API_TESTS_H
-#define MBED_CRC_API_TESTS_H
+#ifndef CRC_API_TESTS_H
+#define CRC_API_TESTS_H
 
 #include "device.h"
 

@@ -17,8 +17,8 @@
 /** \addtogroup hal */
 /** @{*/
 
-#ifndef MBED_CRC_HAL_API_H
-#define MBED_CRC_HAL_API_H
+#ifndef CRC_HAL_API_H
+#define CRC_HAL_API_H
 
 #include <stdbool.h>
 #include <stddef.h>
