@@ -1,4 +1,4 @@
-# Copyright (c) 2020-2021 Arm Limited
+# Copyright (c) 22021 Arm Limited
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
+set(TEST_TARGET_LIB sdfx-test-crc)
 
-set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../../.. CACHE INTERNAL "")
-set(TEST_TARGET mbed-hal-crc)
+add_library(${TEST_TARGET_LIB} OBJECT)
 
-include(${MBED_PATH}/tools/cmake/mbed_greentea.cmake)
+target_sources(${TEST_TARGET_LIB}
+    PRIVATE
+        main.cpp
+)
 
-project(${TEST_TARGET})
-
-mbed_greentea_add_test(TEST_NAME ${TEST_TARGET})
+target_link_libraries(${TEST_TARGET_LIB}
+    PRIVATE
+        mbed-os
+        greentea::client
+        test-harness
+)

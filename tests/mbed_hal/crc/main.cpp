@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+#include <stdio.h>
+#include <string.h>
 #include "utest/utest.h"
 #include "unity/unity.h"
 #include "greentea-client/test_env.h"
-#include "mbed.h"
+#include "greentea-custom_io/custom_io.h"
 #include "math.h"
 #include "crc_api.h"
 
@@ -189,6 +191,7 @@ Case cases[] = {
 
 utest::v1::status_t greentea_test_setup(const size_t number_of_cases)
 {
+    greentea_init_custom_io();
     GREENTEA_SETUP(30, "default_auto");
     return greentea_test_setup_handler(number_of_cases);
 }
