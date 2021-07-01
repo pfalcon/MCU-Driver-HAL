@@ -25,7 +25,7 @@
 #ifndef MBED_SLEEP_TEST_UTILS_H
 #define MBED_SLEEP_TEST_UTILS_H
 
-#include "hal/ticker_api.h"
+#include "hal/ticker_types.h"
 #include "hal/us_ticker_api.h"
 #include "hal/lp_ticker_api.h"
 

@@ -23,14 +23,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "device.h"
-
-/**
- * Legacy format representing a timestamp in us.
- * Given it is modeled as a 32 bit integer, this type can represent timestamp
- * up to 4294 seconds (71 minutes).
- * Prefer using us_timestamp_t which store timestamp as 64 bits integer.
- */
-typedef uint32_t timestamp_t;
+#include "hal/ticker_types.h"
 
 /**
  * A us timestamp stored in a 64 bit integer.
@@ -47,28 +40,6 @@ typedef struct ticker_event_s {
 } ticker_event_t;
 
 typedef void (*ticker_event_handler)(uint32_t id);
-
-/** Information about the ticker implementation
- */
-typedef struct {
-    uint32_t frequency;                           /**< Frequency in Hz this ticker runs at */
-    uint32_t bits;                                /**< Number of bits this ticker supports */
-} ticker_info_t;
-
-
-/** Ticker's interface structure - required API for a ticker
- */
-typedef struct {
-    void (*init)(void);                           /**< Init function */
-    uint32_t (*read)(void);                       /**< Read function */
-    void (*disable_interrupt)(void);              /**< Disable interrupt function */
-    void (*clear_interrupt)(void);                /**< Clear interrupt function */
-    void (*set_interrupt)(timestamp_t timestamp); /**< Set interrupt function */
-    void (*fire_interrupt)(void);                 /**< Fire interrupt right-away */
-    void (*free)(void);                           /**< Disable function */
-    const ticker_info_t *(*get_info)(void);       /**< Return info about this ticker's implementation */
-    bool runs_in_deep_sleep;                      /**< Whether ticker operates in deep sleep */
-} ticker_interface_t;
 
 /* Optimizations to avoid run-time computation if custom ticker support is disabled and
  * there is exactly one of USTICKER or LPTICKER available, or if they have the same
@@ -141,10 +112,10 @@ typedef struct {
 
 /** Ticker's data structure
  */
-typedef struct {
+struct ticker_data_s {
     const ticker_interface_t *interface; /**< Ticker's interface */
     ticker_event_queue_t *queue;         /**< Ticker's event queue */
-} ticker_data_t;
+};
 
 #ifdef __cplusplus
 extern "C" {

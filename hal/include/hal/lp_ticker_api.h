@@ -24,7 +24,7 @@
 
 #if DEVICE_LPTICKER
 
-#include "hal/ticker_api.h"
+#include "hal/ticker_types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,8 +66,6 @@ extern "C" {
 
  * @{
  */
-
-typedef void (*ticker_irq_handler_type)(const ticker_data_t *const);
 
 /** Set low power ticker IRQ handler
  *

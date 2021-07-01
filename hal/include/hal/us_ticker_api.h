@@ -21,7 +21,7 @@
 #define MBED_US_TICKER_API_H
 
 #include <stdint.h>
-#include "hal/ticker_api.h"
+#include "hal/ticker_types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,8 +96,6 @@ extern "C" {
  * @ingroup hal_us_ticker
  * @ingroup hal_lp_ticker
  */
-
-typedef void (*ticker_irq_handler_type)(const ticker_data_t *const);
 
 /** Set ticker IRQ handler
  *

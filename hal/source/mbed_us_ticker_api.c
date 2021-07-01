@@ -17,6 +17,7 @@
 #include <stddef.h>
 #include "bootstrap/mbed_atomic.h"
 #include "hal/us_ticker_api.h"
+#include "hal/ticker_api.h"
 
 #if DEVICE_USTICKER
 
