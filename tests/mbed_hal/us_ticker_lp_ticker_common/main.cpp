@@ -524,14 +524,6 @@ utest::v1::status_t us_ticker_setup(const Case *const source, const size_t index
      * may make use of us ticker so suspend them for this test */
     osKernelSuspend();
 #endif
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-#if DEVICE_LPTICKER && (LPTICKER_DELAY_TICKS > 0)
-    /* Suspend the lp ticker wrapper since it makes use of the us ticker */
-    ticker_suspend(get_lp_ticker_data());
-    lp_ticker_wrapper_suspend();
-#endif
-    ticker_suspend(get_us_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
     intf->init();
 
@@ -550,13 +542,6 @@ utest::v1::status_t us_ticker_teardown(const Case *const source, const size_t pa
 
     prev_irq_handler = NULL;
 
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_resume(get_us_ticker_data());
-#if DEVICE_LPTICKER && (LPTICKER_DELAY_TICKS > 0)
-    lp_ticker_wrapper_resume();
-    ticker_resume(get_lp_ticker_data());
-#endif
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 #ifdef MBED_CONF_RTOS_PRESENT
     osKernelResume(0);
 #endif
@@ -573,9 +558,6 @@ utest::v1::status_t lp_ticker_setup(const Case *const source, const size_t index
     /* OS and common ticker may make use of lp ticker so suspend them for this test */
     osKernelSuspend();
 #endif
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_suspend(get_lp_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
     intf->init();
 
@@ -594,9 +576,6 @@ utest::v1::status_t lp_ticker_teardown(const Case *const source, const size_t pa
 
     prev_irq_handler = NULL;
 
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_resume(get_lp_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 #ifdef MBED_CONF_RTOS_PRESENT
     osKernelResume(0);
 #endif

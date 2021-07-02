@@ -20,14 +20,6 @@
 
 #if DEVICE_USTICKER
 
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-
-#include "hal/ticker_api.h"
-static ticker_irq_handler_type irq_handler = ticker_irq_handler;
-static ticker_event_queue_t events = { 0 };
-
-#else // MBED_CONF_USE_TICKER_EVENT_QUEUE
-
 #include "bootstrap/mbed_critical.h"
 
 static void default_us_ticker_irq_handler(const ticker_data_t *const ticker)
@@ -38,8 +30,6 @@ static void default_us_ticker_irq_handler(const ticker_data_t *const ticker)
 }
 
 static ticker_irq_handler_type irq_handler = default_us_ticker_irq_handler;
-
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
 #if MBED_CONF_TARGET_INIT_US_TICKER_AT_BOOT
 
@@ -94,9 +84,6 @@ static const ticker_interface_t us_interface = {
 
 static const ticker_data_t us_data = {
     .interface = &us_interface,
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    .queue = &events,
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 };
 
 const ticker_data_t *get_us_ticker_data(void)

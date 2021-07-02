@@ -135,14 +135,6 @@ void ticker_frequency_test()
 
 utest::v1::status_t us_ticker_case_setup_handler_t(const Case *const source, const size_t index_of_case)
 {
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-#if DEVICE_LPTICKER && (LPTICKER_DELAY_TICKS > 0)
-    /* Suspend the lp ticker wrapper since it makes use of the us ticker */
-    ticker_suspend(get_lp_ticker_data());
-    lp_ticker_wrapper_suspend();
-#endif
-    ticker_suspend(get_us_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
     intf = get_us_ticker_data()->interface;
     prev_handler = set_us_ticker_irq_handler(ticker_event_handler_stub);
     return greentea_case_setup_handler(source, index_of_case);
@@ -152,22 +144,12 @@ utest::v1::status_t us_ticker_case_teardown_handler_t(const Case *const source, 
                                                       const failure_t reason)
 {
     set_us_ticker_irq_handler(prev_handler);
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_resume(get_us_ticker_data());
-#if DEVICE_LPTICKER && (LPTICKER_DELAY_TICKS > 0)
-    lp_ticker_wrapper_resume();
-    ticker_resume(get_lp_ticker_data());
-#endif
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
     return greentea_case_teardown_handler(source, passed, failed, reason);
 }
 
 #if DEVICE_LPTICKER
 utest::v1::status_t lp_ticker_case_setup_handler_t(const Case *const source, const size_t index_of_case)
 {
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_suspend(get_lp_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
     intf = get_lp_ticker_data()->interface;
     prev_handler = set_lp_ticker_irq_handler(ticker_event_handler_stub);
     return greentea_case_setup_handler(source, index_of_case);
@@ -177,9 +159,6 @@ utest::v1::status_t lp_ticker_case_teardown_handler_t(const Case *const source, 
                                                       const failure_t reason)
 {
     set_lp_ticker_irq_handler(prev_handler);
-#if MBED_CONF_USE_TICKER_EVENT_QUEUE
-    ticker_resume(get_lp_ticker_data());
-#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
     return greentea_case_teardown_handler(source, passed, failed, reason);
 }
 #endif
