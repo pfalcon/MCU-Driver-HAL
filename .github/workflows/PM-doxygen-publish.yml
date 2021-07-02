@@ -37,15 +37,15 @@ jobs:
           mkdir -p ./docs/doxygen/html
           doxygen ./docs/doxygen/doxyfile_options
 
-      # Push the generated doxygen into stash, then cherry-pick them to docs-doxygen_html branch
-      - name: Push to docs-doxygen_html branch
+      # Create a commit with new html on main branch, then cherry-pick to docs-doxygen_html branch
+      - name: Create a commit with new artifacts
         run: |
           MAIN_SHA=$(git rev-parse --short HEAD)
           git add ./docs/doxygen/html
-          git stash push -m "Doxy: Generate HTML @ $MAIN_SHA" ./docs/doxygen/html
+          git commit -m "Doxy: Generate HTML @ $MAIN_SHA"
           git fetch origin
           git checkout origin/docs-doxygen_html
-          git cherry-pick --strategy=recursive --strategy-option=theirs stash@{0} -m 1
+          git cherry-pick --strategy=recursive --strategy-option=theirs HEAD@{1}
 
       - name: Push to remote branch
         run: |
