@@ -38,4 +38,4 @@ You can find the API and specification for the hardware CRC API in the following
 
 The MCU-Driver-HAL API provides a set of conformance tests for hardware CRC. You can use these tests to validate the correctness of your implementation.
 
-Steps to run the hardware CRC HAL tests will be provided in the future.
+To run the hardware CRC HAL tests, follow the generic testing instructions in your vendor's driver implementation.
