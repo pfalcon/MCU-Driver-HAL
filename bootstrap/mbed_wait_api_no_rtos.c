@@ -18,14 +18,15 @@
 #include "bootstrap/mbed_toolchain.h"
 #include "bootstrap/mbed_wait_api.h"
 
-#include "hal/lp_ticker_api.h"
-#include "hal/us_ticker_api.h"
-#include "hal/ticker_api.h"
-
 // This wait_us is used by both RTOS and non-RTOS builds
 /*  The actual time delay may be 1 less usec */
 
 #if DEVICE_USTICKER
+#include "hal/us_ticker_api.h"
+
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
+#include "hal/ticker_api.h"
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
 #if defined US_TICKER_PERIOD_NUM
 /* Real definition for binary compatibility with binaries not using the new macro */
@@ -48,10 +49,29 @@ void _wait_us_generic(unsigned int us)
 void wait_us(int us)
 #endif
 {
+
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
+
     // Generic version using full ticker, allowing for initialization, scaling and widening of timer
     const ticker_data_t *const ticker = get_us_ticker_data();
     const uint32_t start = ticker_read(ticker);
     while ((ticker_read(ticker) - start) < (uint32_t)us);
+
+#else // MBED_CONF_USE_TICKER_EVENT_QUEUE
+
+    const ticker_info_t *info = us_ticker_get_info();
+    uint32_t mask = (1 << info->bits) - 1;
+    int remaining_ticks = (int)((uint64_t) us * info->frequency / 1000000);
+
+    uint32_t prev = us_ticker_read();
+    while (remaining_ticks > 0) {
+        uint32_t next = us_ticker_read();
+        remaining_ticks -= (next - prev) & mask;
+        prev = next;
+    }
+
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
+
 }
 
 #else // DEVICE_USTICKER

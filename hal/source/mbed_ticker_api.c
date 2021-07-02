@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
+
 #include <stdio.h>
 #include <stddef.h>
 #include "hal/ticker_api.h"
@@ -648,3 +650,5 @@ void ticker_resume(const ticker_data_t *const ticker)
 
     core_util_critical_section_exit();
 }
+
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE

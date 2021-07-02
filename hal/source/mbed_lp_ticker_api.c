@@ -18,9 +18,26 @@
 
 #if DEVICE_LPTICKER
 
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
+
+#include "hal/ticker_api.h"
+static ticker_irq_handler_type irq_handler = ticker_irq_handler;
 static ticker_event_queue_t events = { 0 };
 
-static ticker_irq_handler_type irq_handler = ticker_irq_handler;
+#else // MBED_CONF_USE_TICKER_EVENT_QUEUE
+
+#include "bootstrap/mbed_critical.h"
+
+static void default_lp_ticker_irq_handler(const ticker_data_t *const ticker)
+{
+    core_util_critical_section_enter();
+    lp_ticker_clear_interrupt();
+    core_util_critical_section_exit();
+}
+
+static ticker_irq_handler_type irq_handler = default_lp_ticker_irq_handler;
+
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
 static const ticker_interface_t lp_interface = {
     .init = lp_ticker_init,
@@ -36,7 +53,9 @@ static const ticker_interface_t lp_interface = {
 
 static const ticker_data_t lp_data = {
     .interface = &lp_interface,
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
     .queue = &events,
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 };
 
 const ticker_data_t *get_lp_ticker_data(void)

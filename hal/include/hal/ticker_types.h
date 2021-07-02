@@ -55,6 +55,14 @@ typedef struct {
 typedef struct ticker_data_s ticker_data_t;
 typedef void (*ticker_irq_handler_type)(const ticker_data_t *const);
 
+#if !MBED_CONF_USE_TICKER_EVENT_QUEUE
+
+struct ticker_data_s {
+    const ticker_interface_t *interface; /**< Ticker's interface */
+};
+
+#endif // !MBED_CONF_USE_TICKER_EVENT_QUEUE
+
 #endif
 
 /** @}*/

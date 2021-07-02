@@ -25,6 +25,8 @@
 #include "device.h"
 #include "hal/ticker_types.h"
 
+#if MBED_CONF_USE_TICKER_EVENT_QUEUE
+
 /**
  * A us timestamp stored in a 64 bit integer.
  * Can store timestamp up to 584810 years.
@@ -256,6 +258,8 @@ int _ticker_match_interval_passed(timestamp_t prev_tick, timestamp_t cur_tick, t
 #ifdef __cplusplus
 }
 #endif
+
+#endif // MBED_CONF_USE_TICKER_EVENT_QUEUE
 
 #endif
 
