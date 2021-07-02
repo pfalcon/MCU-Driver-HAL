@@ -32,7 +32,6 @@ target_sources(mbed-core
         # source/mbed_lp_ticker_api.c
         source/mbed_pinmap_common.c
         # source/mbed_pinmap_default.cpp
-        source/mbed_ticker_api.c
         source/mbed_us_ticker_api.c
         # source/static_pinmap.cpp
 

@@ -207,10 +207,6 @@ uint32_t (us_ticker_read)(void);
  *
  * @param timestamp The time in ticks to be set
  *
- * @note no special handling needs to be done for times in the past
- * as the common timer code will detect this and call
- * us_ticker_fire_interrupt() if this is the case
- *
  * @note calling this function with timestamp of more than the supported
  * number of bits returned by ::us_ticker_get_info results in undefined
  * behavior.
