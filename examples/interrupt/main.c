@@ -15,23 +15,40 @@
  */
 
 #include "hal/gpio_api.h"
-#include "hal/ticker_api.h"
+#include "hal/us_ticker_api.h"
 
-gpio_t my_gpio;
+#define LED_PERIOD_S 1 // LED1 blinking period in seconds.
 
-void toggle_handler(uint32_t id)
+gpio_t led1;
+
+void toggle_gpio(gpio_t *gpio)
 {
-    if (gpio_read(&my_gpio)) gpio_write(&my_gpio, 0);
-    else gpio_write(&my_gpio, 1);
+    gpio_write(gpio, gpio_read(gpio) ? 0 : 1);
+}
+
+void irq_handler(const ticker_data_t *const ticker)
+{
+    uint32_t current_tick = ticker->interface->read();
+    ticker->interface->clear_interrupt();
+
+    toggle_gpio(&led1);
+
+    const ticker_info_t *info = ticker->interface->get_info();
+    uint32_t delay_in_ticks = LED_PERIOD_S * info->frequency;
+    uint32_t counter_mask = (1 << info->bits) - 1;
+    uint32_t next_irq_tick = (current_tick + delay_in_ticks) & counter_mask;
+    ticker->interface->set_interrupt(next_irq_tick);
 }
 
 int main()
-{   
-    ticker_data_t toggle_ticker;
+{
+    gpio_init_out(&led1, LED1);
+    us_ticker_init();
+    set_us_ticker_irq_handler(irq_handler);
 
-    gpio_init_out(&my_gpio, LED1);
-    
-    ticker_set_handler(&toggle_ticker, &toggle_handler);
+    // Force the first interrupt. The following ones will be sheduled
+    // by the handler code.
+    us_ticker_fire_interrupt();
 
     while (1);
 }
