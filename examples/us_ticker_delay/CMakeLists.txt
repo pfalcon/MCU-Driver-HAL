@@ -13,14 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_library(sdfx-hal-example-us_ticker OBJECT)
+add_library(sdfx-hal-example-us_ticker_delay OBJECT)
 
-target_sources(sdfx-hal-example-us_ticker
+target_sources(sdfx-hal-example-us_ticker_delay
     PRIVATE
         main.c
 )
 
-target_link_libraries(sdfx-hal-example-us_ticker
+target_link_libraries(sdfx-hal-example-us_ticker_delay
     PRIVATE
         mbed-os
 )

@@ -155,14 +155,15 @@ target_include_directories(mbed-core
 add_subdirectory(bootstrap)
 add_subdirectory(hal)
 
+# Examples
 add_subdirectory(examples/flash EXCLUDE_FROM_ALL)
 add_subdirectory(examples/gpio EXCLUDE_FROM_ALL)
-add_subdirectory(examples/interrupt EXCLUDE_FROM_ALL)
 add_subdirectory(examples/serial EXCLUDE_FROM_ALL)
 add_subdirectory(examples/spi EXCLUDE_FROM_ALL)
 add_subdirectory(examples/trace EXCLUDE_FROM_ALL)
 add_subdirectory(examples/trng EXCLUDE_FROM_ALL)
-add_subdirectory(examples/us_ticker EXCLUDE_FROM_ALL)
+add_subdirectory(examples/us_ticker_delay EXCLUDE_FROM_ALL)
+add_subdirectory(examples/us_ticker_interrupt EXCLUDE_FROM_ALL)
 
 # greentea-client and test-harness (unity + utest)
 add_subdirectory(tools/greentea-client)

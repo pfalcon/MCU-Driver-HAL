@@ -13,14 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_library(sdfx-hal-example-interrupt OBJECT)
+add_library(sdfx-hal-example-us_ticker_interrupt OBJECT)
 
-target_sources(sdfx-hal-example-interrupt
+target_sources(sdfx-hal-example-us_ticker_interrupt
     PRIVATE
         main.c
 )
 
-target_link_libraries(sdfx-hal-example-interrupt
+target_link_libraries(sdfx-hal-example-us_ticker_interrupt
     PRIVATE
         mbed-os
 )

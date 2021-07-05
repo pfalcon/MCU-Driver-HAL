@@ -34,12 +34,12 @@ The following table details the currently supported MCU-Driver-HAL examples.
 |---            |---                       |
 | flash         |   Erases, reads, writes the flash at various locations     |
 | gpio          |   Blinks two LEDs in alternation using a loop as a delay   |
-| interrupt     |   Blinks an LED in a callback     |
 | serial        |   Prints some text to the console     |
 | spi           |   Initialises the SPI interface and write a byte     |
 | trace         |   Prints traces for the supported tracing levels     |
 | trng          |   Gets random data from the true random number generator     |
-| us_ticker     |   Blinks two LEDs in alteration using the microsecond ticker as a delay     |
+| us_ticker_delay |   Blinks two LEDs in alteration using the microsecond ticker as a delay     |
+| us_ticker_interrupt |   Blinks an LED in a callback     |
 
 ## Build
 
