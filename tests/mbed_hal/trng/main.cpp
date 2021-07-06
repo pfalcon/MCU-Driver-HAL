@@ -37,6 +37,7 @@
 */
 
 #include "greentea-client/test_env.h"
+#include "greentea-custom_io/custom_io.h"
 #include "unity/unity.h"
 #include "utest/utest.h"
 #include "hal/trng_api.h"
@@ -236,6 +237,7 @@ Case cases[] = {
 
 utest::v1::status_t greentea_test_setup(const size_t number_of_cases)
 {
+    greentea_init_custom_io();
     GREENTEA_SETUP(100, "trng_reset");
     return greentea_test_setup_handler(number_of_cases);
 }
