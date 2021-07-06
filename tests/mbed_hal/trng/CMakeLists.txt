@@ -13,19 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
+add_library(sdfx-test-trng OBJECT)
 
-set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../../.. CACHE INTERNAL "")
-set(TEST_TARGET mbed-hal-trng)
+target_include_directories(sdfx-test-trng
+    PRIVATE
+        base64b
+        pithy
+)
 
-include(${MBED_PATH}/tools/cmake/mbed_greentea.cmake)
+target_sources(sdfx-test-trng
+    PRIVATE
+        main.cpp
+        base64b/base64b.cpp
+        pithy/pithy.c
+)
 
-project(${TEST_TARGET})
-
-list(APPEND TEST_SOURCE_LIST base64b/base64b.cpp pithy/pithy.c)
-list(APPEND TEST_INC_DIRS base64b pithy)
-
-mbed_greentea_add_test(TEST_NAME ${TEST_TARGET}
-    TEST_SOURCES ${TEST_SOURCE_LIST}
-    TEST_INCLUDE_DIRS ${TEST_INC_DIRS}
+target_link_libraries(sdfx-test-trng
+    PRIVATE
+        mbed-os
+        greentea::client
+        test-harness
 )
