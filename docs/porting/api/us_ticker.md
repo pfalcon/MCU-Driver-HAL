@@ -1,6 +1,6 @@
 # Microsecond ticker
 
-Implementing the microsecond ticker enables MCU-Driver-HAL to perform operations that require precise timing. You can use this API to schedule events, record elapsed time and perform submillisecond delays.
+Implementing the microsecond ticker enables MCU-Driver-HAL to perform operations that require precise timing. You can use this API to schedule ticker interrupts, record elapsed time and perform submillisecond delays.
 
 ## Assumptions
 
@@ -17,15 +17,15 @@ Implementing the microsecond ticker enables MCU-Driver-HAL to perform operations
 - The ticker increments by 1 each tick.
 - The ticker interrupt fires only when the ticker time increments to or past the value set by the set interrupt function.
 - It is safe to call the set interrupt function repeatedly before the handler is called.
-- The function to fire interrupt causes `ticker_irq_handler` to be called immediately from interrupt context.
+- The function to fire interrupt causes `us_ticker_irq_handler` to be called immediately from interrupt context.
 - The read, clear interrupt, set interrupt and fire interrupt ticker operations take less than 20 us to complete.
 - The init and read ticker operations are atomic.
 
 ### Undefined behavior
 
 - Calling any function other than the initialization function before the initialization of the ticker.
-- Whether `ticker_irq_handler` is called a second time if the time wraps and matches the value set by the set interrupt function again.
-- Calling the set interrupt` fucntion with a value that has more than the supported number of bits.
+- Whether `us_ticker_irq_handler` is called a second time if the time wraps and matches the value set by the set interrupt function again.
+- Calling the set interrupt fucntion with a value that has more than the supported number of bits.
 - Calling any function other than the init function after calling the free function.
 
 ### Notes
@@ -50,9 +50,7 @@ To enable microsecond ticker support add `DEVICE_USTICKER=1` in the CMake variab
 
 ### Optimizing the microsecond ticker API
 
-The generic ticker API uses the `ticker_info_t` structure to determine each hardware counter frequency and width. This then requires runtime calculations to convert between the hardware counter and the 64-bit microsecond count used by the generic API.
-
-In addition to the generic `ticker_info_t`, the MCU can also provide compile time information about the microsecond ticker by defining the macros `US_TICKER_PERIOD_NUM`, `US_TICKER_PERIOD_DEN` and `US_TICKER_MASK`. If provided, these permit greatly optimized versions of APIs such as `wait_us`. See the header file for full details.
+In addition to `ticker_info_t`, the MCU can also provide compile time information about the microsecond ticker by defining the macros `US_TICKER_PERIOD_NUM`, `US_TICKER_PERIOD_DEN` and `US_TICKER_MASK`. If provided, these permit greatly optimized versions of APIs such as `wait_us`. See the header file for full details.
 
 ## Testing
 
