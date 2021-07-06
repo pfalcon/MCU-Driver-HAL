@@ -45,8 +45,6 @@
 #include "pithy.h"
 #include <stdio.h>
 #include <string.h>
-#include "mbedtls/config.h"
-#include "mbedtls/platform.h"
 
 #if !DEVICE_TRNG
 #error [NOT_SUPPORTED] TRNG API not supported for this target
@@ -247,13 +245,7 @@ Specification specification(greentea_test_setup, cases, greentea_test_teardown_h
 int main()
 {
     int ret = 0;
-#if defined(MBEDTLS_PLATFORM_C)
-    ret = mbedtls_platform_setup(NULL);
-#endif /* MBEDTLS_PLATFORM_C */
     ret = !Harness::run(specification);
-#if defined(MBEDTLS_PLATFORM_C)
-    mbedtls_platform_teardown(NULL);
-#endif /* MBEDTLS_PLATFORM_C */
     return ret;
 }
 
