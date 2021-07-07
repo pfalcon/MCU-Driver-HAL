@@ -13,16 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set(TEST_TARGET_LIB sdfx-test-crc)
+add_library(sdfx-test-crc OBJECT)
 
-add_library(${TEST_TARGET_LIB} OBJECT)
-
-target_sources(${TEST_TARGET_LIB}
+target_sources(sdfx-test-crc
     PRIVATE
         main.cpp
 )
 
-target_link_libraries(${TEST_TARGET_LIB}
+target_link_libraries(sdfx-test-crc
     PRIVATE
         mbed-os
         greentea::client

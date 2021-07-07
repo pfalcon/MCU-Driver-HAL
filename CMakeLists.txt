@@ -165,16 +165,18 @@ add_subdirectory(examples/trng EXCLUDE_FROM_ALL)
 add_subdirectory(examples/us_ticker_delay EXCLUDE_FROM_ALL)
 add_subdirectory(examples/us_ticker_interrupt EXCLUDE_FROM_ALL)
 
-# greentea-client and test-harness (unity + utest)
+# greentea-client with custom IO
 add_subdirectory(tools/greentea-client)
 add_subdirectory(tools/greentea-custom_io)
+
+# test-harness (unity + utest)
 add_library(test-harness INTERFACE)
 add_subdirectory(tools/unity)
 add_subdirectory(tools/utest)
 
 # HAL tests
-add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/crc EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_common EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_frequency EXCLUDE_FROM_ALL)
