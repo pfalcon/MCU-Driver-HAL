@@ -41,8 +41,18 @@ function(mbed_set_cpu_core_definitions target)
     target_compile_definitions(${target}
         INTERFACE
             __CORTEX_M55
-            __FPU_PRESENT=1
+            __FPU_PRESENT=1U
             __CMSIS_RTOS
             __MBED_CMSIS_RTOS_CM
+            __SAUREGION_PRESENT=1U
+            __MPU_PRESENT=1U
+            __VTOR_PRESENT=1U
+            __Vendor_SysTickConfig=0U
+            __FPU_DP=1U
+            __MVE_PRESENT=1U
+            __MVE_FP=1U
+            __NVIC_PRIO_BITS=3U
+            __DSP_PRESENT=1U
+
     )
 endfunction()
